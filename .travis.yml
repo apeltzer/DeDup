@@ -10,13 +10,3 @@ script: "gradle build"
 env:
   - version=0.12.2
 
-before_deploy:
-      # Set up git user name and tag this commit
-      - git config --local user.name "apeltzer"
-      - git config --local user.email "alexander.peltzer@uni-tuebingen.de"
-      - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
-    deploy:
-      provider: releases
-      api_key: GITHUB_TOKEN
-      file: "build/libs/DeDup-$VERSION.jar"
-      skip_cleanup: true
