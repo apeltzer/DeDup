@@ -1,7 +1,7 @@
 # DeDup
 A merged read deduplication tool capable to perform merged read deduplication on single end data. 
 
-[![Build Status](https://lambda.informatik.uni-tuebingen.de/jenkins/buildStatus/icon?job=DeDup)](https://lambda.informatik.uni-tuebingen.de/jenkins/view/EAGER/job/DeDup/)
+[![Build Status](https://travis-ci.org/apeltzer/DeDup.svg?branch=master)](https://travis-ci.org/apeltzer/DeDup)
 [![codecov](https://codecov.io/gh/apeltzer/DeDup/branch/master/graph/badge.svg)](https://codecov.io/gh/apeltzer/DeDup)
 [ ![Download](https://api.bintray.com/packages/apeltzer/EAGER/DeDup/images/download.svg) ](https://bintray.com/apeltzer/EAGER/DeDup/_latestVersion)
 
