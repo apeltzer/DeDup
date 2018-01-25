@@ -1,11 +1,11 @@
 language: java
 sudo: false
 
-jdk:
-  - oraclejdk8
 
-script:
-  - gradle build
+jdk:
+  - oraclejdk8         
+
+script: "gradle build"
 
 env:
   - version=0.12.2
