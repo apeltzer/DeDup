@@ -4,7 +4,7 @@ jdk:
 - oraclejdk8
 script: gradle build
 env:
-- version=0.12.2
+- version=0.12.3
 deploy:
   provider: releases
   api_key:

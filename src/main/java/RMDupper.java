@@ -44,12 +44,12 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  * DeDup Tool for Duplicate Removal of short read duplicates in BAM/SAM Files.
  *
  * @author Alexander Peltzer
- * @version 0.9.10
+ * @version 0.12.3
  * @Date: 09/17/15
  */
 public class RMDupper{
     private static final String CLASS_NAME = "dedup";
-    private static final String VERSION = "0.12.1";
+    private static final String VERSION = "0.12.3";
     private static boolean piped = true;
 
     private final Boolean allReadsAsMerged;
@@ -233,7 +233,7 @@ public class RMDupper{
                 rmdup.inputSam.close();
                 rmdup.outputSam.close();
 
-                bfw.write(inputFile.getName() + "\n");
+                bfw.write("Input file: " + inputFile.getName() + "\n");
                 bfw.write("Total reads: " + rmdup.dupStats.total + "\n");
                 bfw.write("Reverse removed: " + rmdup.dupStats.removed_reverse + "\n");
                 bfw.write("Forward removed: " + rmdup.dupStats.removed_forward + "\n");
