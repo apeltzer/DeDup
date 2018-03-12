@@ -233,6 +233,7 @@ public class RMDupper{
                 rmdup.inputSam.close();
                 rmdup.outputSam.close();
 
+                bfw.write(inputFile.getName() + "\n");
                 bfw.write("Total reads: " + rmdup.dupStats.total + "\n");
                 bfw.write("Reverse removed: " + rmdup.dupStats.removed_reverse + "\n");
                 bfw.write("Forward removed: " + rmdup.dupStats.removed_forward + "\n");
