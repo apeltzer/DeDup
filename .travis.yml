@@ -12,4 +12,5 @@ deploy:
   file: build/libs/DeDup-0.12.3.jar
   skip_cleanup: true
   on:
+    all_branches: true 
     repo: apeltzer/DeDup
