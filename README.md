@@ -3,7 +3,7 @@ A merged read deduplication tool capable to perform merged read deduplication on
 
 [![Build Status](https://travis-ci.org/apeltzer/DeDup.svg?branch=master)](https://travis-ci.org/apeltzer/DeDup)
 [![codecov](https://codecov.io/gh/apeltzer/DeDup/branch/master/graph/badge.svg)](https://codecov.io/gh/apeltzer/DeDup)
-[ ![Download](https://api.bintray.com/packages/apeltzer/EAGER/DeDup/images/download.svg) ](https://bintray.com/apeltzer/EAGER/DeDup/_latestVersion)
+[![install with bioconda](https://img.shields.io/badge/install%20with-bioconda-brightgreen.svg?style=flat-square)](http://bioconda.github.io/recipes/dedup/README.html)
 
 Author: Alexander Peltzer <alexander.peltzer@uni-tuebingen.de>
 
