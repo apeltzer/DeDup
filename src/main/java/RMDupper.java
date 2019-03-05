@@ -23,6 +23,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.text.DecimalFormat;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import htsjdk.samtools.*;
 import java.util.*;
 import java.util.function.Function;
@@ -44,12 +47,12 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  * DeDup Tool for Duplicate Removal of short read duplicates in BAM/SAM Files.
  *
  * @author Alexander Peltzer
- * @version 0.12.3
+ * @version 0.12.4
  * @Date: 09/17/15
  */
 public class RMDupper{
     private static final String CLASS_NAME = "dedup";
-    private static final String VERSION = "0.12.3";
+    private static final String VERSION = "0.12.4";
     private static boolean piped = true;
 
     private final Boolean allReadsAsMerged;
@@ -216,6 +219,7 @@ public class RMDupper{
             File outputFile = new File(outputpath + "/" + Files.getNameWithoutExtension(inputFile.getAbsolutePath()) + "_rmdup.bam");
             File outputlog = new File(outputpath + "/" + Files.getNameWithoutExtension(inputFile.getAbsolutePath()) + ".log");
             File outputhist = new File(outputpath + "/" + Files.getNameWithoutExtension(inputFile.getAbsolutePath()) + ".hist");
+            File outputjson = new File(outputpath + "/" + Files.getNameWithoutExtension(inputFile.getAbsolutePath()) + ".dedup.json");
 
 
 
@@ -225,6 +229,7 @@ public class RMDupper{
             try {
                 FileWriter fw = new FileWriter(outputlog);
                 FileWriter histfw = new FileWriter(outputhist);
+                FileWriter jsonfw = new FileWriter(outputjson);
                 BufferedWriter bfw = new BufferedWriter(fw);
                 BufferedWriter histbfw = new BufferedWriter(histfw);
 
@@ -243,6 +248,39 @@ public class RMDupper{
                 bfw.write("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
                 bfw.flush();
                 bfw.close();
+
+                //Write JSON output, too
+                //Add Sample Name to yaml
+                String sampleName = input.split("/")[input.split("/").length-1];
+
+
+                //Add Metadata to JSON output
+                HashMap<String, Object> json_map = new HashMap<>();
+
+                HashMap<String, Object> meta_map = new HashMap<>();
+                meta_map.put("sample_name", sampleName);
+                meta_map.put("tool_name", "DeDup");
+                meta_map.put("version", VERSION);
+
+                json_map.put("metadata", meta_map);
+
+                HashMap<String, Object> metric_map = new HashMap<>();
+                metric_map.put("total_reads", rmdup.dupStats.total);
+                metric_map.put("reverse_removed", rmdup.dupStats.removed_reverse);
+                metric_map.put("forward_removed", rmdup.dupStats.removed_forward);
+                metric_map.put("merged_removed", rmdup.dupStats.removed_merged);
+                metric_map.put("total_removed", rmdup.dupStats.removed_forward + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_merged);
+                metric_map.put("dup_rate", df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
+                metric_map.put("clusterfactor", df.format( (1.0 + rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward / rmdup.dupStats.total)));
+
+                json_map.put("metrics", metric_map);
+                Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+                String json = gson.toJson(json_map);
+
+                jsonfw.write(json);
+                jsonfw.flush();
+                jsonfw.close();
 
                 histbfw.write(rmdup.oc.getHistogram());
                 histbfw.flush();
