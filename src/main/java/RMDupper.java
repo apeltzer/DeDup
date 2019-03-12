@@ -47,12 +47,12 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  * DeDup Tool for Duplicate Removal of short read duplicates in BAM/SAM Files.
  *
  * @author Alexander Peltzer
- * @version 0.12.4
+ * @version 0.12.5
  * @Date: 09/17/15
  */
 public class RMDupper{
     private static final String CLASS_NAME = "dedup";
-    private static final String VERSION = "0.12.4";
+    private static final String VERSION = "0.12.5";
     private static boolean piped = true;
 
     private final Boolean allReadsAsMerged;
@@ -271,7 +271,7 @@ public class RMDupper{
                 metric_map.put("merged_removed", rmdup.dupStats.removed_merged);
                 metric_map.put("total_removed", rmdup.dupStats.removed_forward + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_merged);
                 metric_map.put("dup_rate", df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
-                metric_map.put("clusterfactor", df.format( (1.0 + rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward / rmdup.dupStats.total)));
+                metric_map.put("clusterfactor", df.format( (1.0 + (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total)));
 
                 json_map.put("metrics", metric_map);
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();

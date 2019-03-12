@@ -4,12 +4,12 @@ jdk:
 - oraclejdk8
 script: gradle build
 env:
-- version=0.12.4
+- version=0.12.5
 deploy:
   provider: releases
   api_key:
     secure: bS506eo5Ocwud3/RKHlZ5cYLJ0vyKlqkS7fWYmhMOJxFxg0v1V8Qq/l/98oS6Fmxo7WUEFmA1SEg5wcrFEf3+RkDbx/l/2gvF162nEfrAJtgbzwahm+7YR9aqVr+5UJzVPnFWif64ZgEX7U6KIxC8KN47a216/KaCow7/d8BKrBoa5PU/guo/Df378qjN3+JwykHpg5CwIKbmaqXdjMj/3DMUdPuTx7K9rb8/t/zI3vBQYobe4xH6l7jj6BXDU11+YEWRkDbMvqWn66R1an0No60uTbLQ4ASdw3l2Ue2TrwcRFAhJs1ZSQp3Ifrizb5pBtc7r5hCxX2MsP5ZAJRgjlqIGfb0fHcy0DF9oVrAuLNzmT0lz5wX5XLh2UZQ0N/5KkVsNGawKqE9PrArp+jRhAFnFgvLXpvKTe+bhIJfRxPtyeVhA9bRM1AH54da0gMq2J6bE6S2s1lH/zfQ1wNOxIhQmkTFkaVCTbKLqmx2GOHc03NE53Pk6p7hb5M5wm4I5LUEt4IZQLh0qlXYzMbbbRwCA/x/LC+mNEZ7ZaAGjNo+xuIZdtW5o9XjfRZURekqA/yXu4ERV0PrgblTV1mPJ3cYHaRhZJbbYNz/7LnrAhdIQOvLSincYzboCkBWL/7GINPBV887/ANWRiigU4wdVRiFtq79+6FUAiVLsKyMORI=
-  file: build/libs/DeDup-0.12.4.jar
+  file: build/libs/DeDup-0.12.5.jar
   skip_cleanup: true
   on:
     all_branches: true 
