@@ -47,12 +47,12 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  * DeDup Tool for Duplicate Removal of short read duplicates in BAM/SAM Files.
  *
  * @author Alexander Peltzer
- * @version 0.12.5
+ * @version 0.12.6
  * @Date: 09/17/15
  */
 public class RMDupper{
     private static final String CLASS_NAME = "dedup";
-    private static final String VERSION = "0.12.5";
+    private static final String VERSION = "0.12.6";
     private static boolean piped = true;
 
     private final Boolean allReadsAsMerged;
@@ -188,6 +188,7 @@ public class RMDupper{
 
             System.err.println("We are in piping mode!");
             System.err.println("Total reads: " + rmdup.dupStats.total + "\n");
+            System.err.println("Mapped reads: " + rmdup.dupStats.mapped_reads + "\n");
             System.err.println("Reverse removed: " + rmdup.dupStats.removed_reverse + "\n");
             System.err.println("Forward removed: " + rmdup.dupStats.removed_forward + "\n");
             System.err.println("Merged removed: " + rmdup.dupStats.removed_merged + "\n");
@@ -240,6 +241,7 @@ public class RMDupper{
 
                 bfw.write("Input file: " + inputFile.getName() + "\n");
                 bfw.write("Total reads: " + rmdup.dupStats.total + "\n");
+                bfw.write("Mapped reads: " + rmdup.dupStats.mapped_reads + "\n");
                 bfw.write("Reverse removed: " + rmdup.dupStats.removed_reverse + "\n");
                 bfw.write("Forward removed: " + rmdup.dupStats.removed_forward + "\n");
                 bfw.write("Merged removed: " + rmdup.dupStats.removed_merged + "\n");
@@ -266,6 +268,7 @@ public class RMDupper{
 
                 HashMap<String, Object> metric_map = new HashMap<>();
                 metric_map.put("total_reads", rmdup.dupStats.total);
+                metric_map.put("mapped_reads", rmdup.dupStats.mapped_reads);
                 metric_map.put("reverse_removed", rmdup.dupStats.removed_reverse);
                 metric_map.put("forward_removed", rmdup.dupStats.removed_forward);
                 metric_map.put("merged_removed", rmdup.dupStats.removed_merged);
@@ -339,6 +342,10 @@ public class RMDupper{
             }
 
             this.dupStats.total++;
+            //Do the same for mapped reads
+            if(! curr.getReadUnmappedFlag()){
+                this.dupStats.mapped_reads++;
+            }
             if(this.dupStats.total % 100000 == 0){
                 if(!piped) {
                     System.err.println("Reads treated: " + this.dupStats.total);
