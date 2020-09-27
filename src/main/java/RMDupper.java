@@ -197,7 +197,7 @@ public class RMDupper{
             if (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_forward + rmdup.dupStats.removed_reverse == 0) {
                 System.err.println("Duplication Rate: " + df.format(0.00));
             } else {
-                System.err.println("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
+                System.err.println("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads));
             }
 
 
@@ -247,7 +247,7 @@ public class RMDupper{
                 bfw.write("Merged removed: " + rmdup.dupStats.removed_merged + "\n");
                 bfw.write("Total removed: " + (rmdup.dupStats.removed_forward + rmdup.dupStats.removed_merged
                     + rmdup.dupStats.removed_reverse) + "\n");
-                bfw.write("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
+                bfw.write("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads));
                 bfw.flush();
                 bfw.close();
 
@@ -273,8 +273,8 @@ public class RMDupper{
                 metric_map.put("forward_removed", rmdup.dupStats.removed_forward);
                 metric_map.put("merged_removed", rmdup.dupStats.removed_merged);
                 metric_map.put("total_removed", rmdup.dupStats.removed_forward + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_merged);
-                metric_map.put("dup_rate", df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
-                metric_map.put("clusterfactor", df.format( (1.0 + (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total)));
+                metric_map.put("dup_rate", df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads));
+                metric_map.put("clusterfactor", df.format( (1.0 + (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads)));
 
                 json_map.put("metrics", metric_map);
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -298,7 +298,7 @@ public class RMDupper{
                 if (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_forward + rmdup.dupStats.removed_reverse == 0) {
                     System.out.println("Duplication Rate: " + df.format(0.00));
                 } else {
-                    System.out.println("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.total));
+                    System.out.println("Duplication Rate: " + df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads));
                 }
             } catch (IOException e) {
                 e.printStackTrace();
