@@ -1,5 +1,5 @@
 group 'com.uni-tuebingen.de.it.eager.dedup'
-version '0.12.6'
+version '0.12.7'
 
 apply plugin: 'java'
 apply plugin: 'idea'

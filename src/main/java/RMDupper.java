@@ -47,7 +47,7 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  * DeDup Tool for Duplicate Removal of short read duplicates in BAM/SAM Files.
  *
  * @author Alexander Peltzer
- * @version 0.12.6
+ * @version 0.12.7
  * @Date: 09/17/15
  */
 public class RMDupper{
