@@ -52,7 +52,7 @@ import org.apache.commons.lang3.tuple.ImmutableTriple;
  */
 public class RMDupper{
     private static final String CLASS_NAME = "dedup";
-    private static final String VERSION = "0.12.7";
+    private static final String VERSION = "0.12.8";
     private static boolean piped = true;
 
     private final Boolean allReadsAsMerged;
@@ -273,8 +273,13 @@ public class RMDupper{
                 metric_map.put("forward_removed", rmdup.dupStats.removed_forward);
                 metric_map.put("merged_removed", rmdup.dupStats.removed_merged);
                 metric_map.put("total_removed", rmdup.dupStats.removed_forward + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_merged);
-                metric_map.put("dup_rate", df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads));
-                metric_map.put("clusterfactor", df.format( (1.0 + (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads)));
+                if(rmdup.dupStats.mapped_reads == 0 ) { //Division by zero bugfix for low coverage / no mapped reads case
+                    metric_map.put("dup_rate", df.format((double) 0));
+                    metric_map.put("clusterfactor", df.format((double) 0));
+                } else {
+                    metric_map.put("dup_rate", df.format((double) (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads));
+                    metric_map.put("clusterfactor", df.format( (1.0 + (rmdup.dupStats.removed_merged + rmdup.dupStats.removed_reverse + rmdup.dupStats.removed_forward) / (double) rmdup.dupStats.mapped_reads)));
+                }
 
                 json_map.put("metrics", metric_map);
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
