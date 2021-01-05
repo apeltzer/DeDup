@@ -1,5 +1,5 @@
 # DeDup
-A merged read deduplication tool capable to perform merged read deduplication on paired-end sequencing data on BAM files. 
+A merged read deduplication tool capable to perform merged read deduplication on paired-end sequencing data of BAM files. 
 
 [![Build Status](https://travis-ci.org/apeltzer/DeDup.svg?branch=master)](https://travis-ci.org/apeltzer/DeDup)
 [![codecov](https://codecov.io/gh/apeltzer/DeDup/branch/master/graph/badge.svg)](https://codecov.io/gh/apeltzer/DeDup)
