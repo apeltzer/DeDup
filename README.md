@@ -20,9 +20,11 @@ While the DeDup tool is designed to work primarily with merged reads, it can als
 - `R_`
 - `M_`
 
+> The companion tool [AdapterRemovalFixPrefix](https://github.com/apeltzer/AdapterRemovalFixPrefix) can be used to add prefixes on reads merged with [AdapterRemoval](https://github.com/MikkelSchubert/adapterremoval).
+
 To remove PCR duplicates we only retain a single read for a given genomic position and read direction. For `M_` (merged) reads we know both the start and end of the sequenced fragment. Two `M_` reads with the same start end and end position will be deduplicated (i.e. best quality read retained). 
 
-For F_ and R_ reads we only know the start or end of the sequenced fragment because the read length is variable. In this case, positions of only one end of the read will be considered for deduplication (as with standard deduplication tools). In the case of a mixture of two reads types, e.g. `M_` and `F_`, only the start position will be considered and `M_` reads will be preferred (with the assumption of higher quality reads). Note this could sometimes lead to slightly over-zealous deduplication, as the unmerged read (`F_`, in this example) may not truly have the same end position as the `M_`.
+For `F_` and `R_` prefixed-reads we only know the start or end of the sequenced fragment because the read length is variable. In this case, positions of only one end of the read will be considered for deduplication (as with standard deduplication tools). In the case of a mixture of two reads types, e.g. `M_` and `F_`, only the start position will be considered and `M_` reads will be preferred (with the assumption of higher quality reads). Note this could sometimes lead to slightly over-zealous deduplication, as the unmerged read (`F_`, in this example) may not truly have the same end position as the `M_`.
 
 :warning: **DeDup is NOT designed for solely single-end data**. If single-end data is supplied and the `--merged` flag is used, both start and end positions will _still_ be considered for deduplication. In this case, you will sub-optimally deduplicate your reads as single-end data will not necessarily always represent the true 'end' of the molecule and therefore leaving possible duplicates in your BAM file. 
 
